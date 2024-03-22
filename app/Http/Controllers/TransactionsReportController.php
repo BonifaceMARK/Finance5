@@ -7,21 +7,7 @@ use App\Models\TransactionsReport;
 
 class TransactionsReportController extends Controller
 {
-    // Action to display all transactions
-    public function indexReport()
-    {
-        $transactions = TransactionsReport::all();
-        return view('transactions-report.index', compact('transactions'));
-    }
 
-    // Action to show the form for creating a new transaction
-    public function createReportReport()
-    {
-        return view('transactions-report.create');
-    }
-
-    // Action to store a newly created transaction in the database
-   // Action to store a newly created transaction in the database
 public function storeReport(Request $request)
 {
     // Validate the incoming request data

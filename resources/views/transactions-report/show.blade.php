@@ -12,7 +12,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('transactions.index') }}">All Transactions</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('transactions-report.index') }}">All Transactions</a></li>
                 <li class="breadcrumb-item active">Transaction Details</li>
             </ol>
         </nav>

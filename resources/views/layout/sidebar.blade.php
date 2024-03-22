@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="{{route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -11,26 +11,20 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('transactions.index')}}">
-          <i class="bi bi-menu-button-wide"></i><span>Transactions</span>
+            <i class="bi bi-credit-card"></i><span>Payment</span>
         </a>
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('transactions-report.index')}}">
-          <i class="bi bi-menu-button-wide"></i><span>Transactions Report</span>
-        </a>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('transactions.index')}}">
-          <i class="bi bi-menu-button-wide"></i><span>Transactions</span>
+        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="">
+            <i class="bi bi-chat"></i><span>Communication & Collaboration</span>
         </a>
       </li><!-- End Components Nav -->
 
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+          <span><i class="bi bi-card-checklist"></i>Accounting Standards</span>
         </a>
       </li><!-- End Icons Nav -->
 

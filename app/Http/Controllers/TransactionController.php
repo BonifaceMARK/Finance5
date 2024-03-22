@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\TransactionsReport;
 
 class TransactionController extends Controller
 {
 
     public function index()
     {
+        $transactionsReport = TransactionsReport::all();
         $transactions = Transaction::all();
-        return view('transactions.index', compact('transactions'));
+        return view('transactions.index', compact('transactions','transactionsReport'));
     }
 
     public function create()

@@ -32,7 +32,7 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">Introduction to Accounting Standards in the Philippines</h5>
+                    <h3 class="card-title">Introduction to Accounting Standards in the Philippines</h3>
                     <p class="card-text">
                         In the Philippines, accounting standards play a crucial role in ensuring transparency, reliability, and comparability in financial reporting across various entities. These standards provide a framework for how financial transactions are recorded, presented, and disclosed in financial statements, facilitating informed decision-making by stakeholders.
                     </p>
@@ -74,8 +74,10 @@
 
           </div><!-- End Card with an image on left -->
           <div class="pdf-viewer">
+            <h4>Philippine Financial Reporting Standards / Philippine Accounting Standards</h4>
             <iframe src="{{ asset('assets/img/PAS.pdf') }}" width="100%" height="600px" frameborder="0"></iframe>
         </div>
+
 
       </div>
     </section>

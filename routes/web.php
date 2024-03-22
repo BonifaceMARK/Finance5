@@ -10,11 +10,9 @@ use App\Http\Controllers\TransactionsReportController;
 
 use App\Http\Controllers\ApiController;
 
-// Route for fetching messages
-Route::get('/messages', [ApiController::class, 'fetchMessages']);
 
-// Route for sending messages
-Route::post('/messages', [CommunicationController::class, 'sendMessage']);
+
+Route::get('/cac', [CommunicationController::class, 'index'])->name('cac.index');
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,7 +21,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/signout', [LoginController::class, 'signout'])->name('signout');
-Route::get('/communication', [CommunicationController::class, 'communcationDash'])->name('cac');
+
 
 Route::get('/standard', [StandardController::class, 'standardDash'])->name('accounting');
 

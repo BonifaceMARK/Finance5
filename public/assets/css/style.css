@@ -18,6 +18,18 @@
     background: #f6f9ff;
     color: #444444;
   }
+  .chat-box {
+    height: 400px;
+    overflow-y: scroll;
+}
+.message {
+    margin-bottom: 10px;
+}
+.sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
 
   a {
     color: #4154f1;

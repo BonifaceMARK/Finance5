@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StandardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionsReportController;
@@ -13,6 +15,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/signout', [LoginController::class, 'signout'])->name('signout');
+Route::get('/communication', [CommunicationController::class, 'communcationDash'])->name('cac');
+
+Route::get('/standard', [StandardController::class, 'standardDash'])->name('accounting');
+
 
 Route::get('/transactions-report', [TransactionsReportController::class, 'indexReport'])->name('transactions-report.index');
 Route::get('/transactions-report/create', [TransactionsReportController::class, 'createReportReport'])->name('transactions-report.create');

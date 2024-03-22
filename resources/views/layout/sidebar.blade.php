@@ -16,14 +16,14 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="">
+        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('cac')}}">
             <i class="bi bi-chat"></i><span>Communication & Collaboration</span>
         </a>
       </li><!-- End Components Nav -->
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('accounting')}}">
           <span><i class="bi bi-card-checklist"></i>Accounting Standards</span>
         </a>
       </li><!-- End Icons Nav -->

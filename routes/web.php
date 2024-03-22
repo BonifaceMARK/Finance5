@@ -8,6 +8,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionsReportController;
 
+use App\Http\Controllers\ApiController;
+
+// Route for fetching messages
+Route::get('/messages', [ApiController::class, 'fetchMessages']);
+
+// Route for sending messages
+Route::post('/messages', [CommunicationController::class, 'sendMessage']);
+
 Route::get('/', function () {
     return view('welcome');
 });

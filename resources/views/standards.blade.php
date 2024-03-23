@@ -73,14 +73,16 @@
             </div>
 
           </div><!-- End Card with an image on left -->
-          <div class="pdf-viewer">
-            <h4>Philippine Financial Reporting Standards / Philippine Accounting Standards</h4>
-            <iframe src="{{ asset('assets/img/PAS.pdf') }}" width="100%" height="600px" frameborder="0"></iframe>
-        </div>
+
 
 
       </div>
+      <div class="pdf-viewer">
+        <h4>Philippine Financial Reporting Standards / Philippine Accounting Standards</h4>
+        <iframe src="{{ asset('assets/img/PAS.pdf') }}" width="100%" height="600px" frameborder="0"></iframe>
+    </div>
     </section>
+
 
   </main><!-- End #main -->
 

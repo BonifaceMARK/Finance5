@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\TransactionsReport;
 
-class TransactionController extends Controller
+class TokenController extends Controller
 {
 
     public function index()
     {
-        $transactionsReport = TransactionsReport::all();
+        $transactionsReports = TransactionsReport::all();
         $transactions = Transaction::all();
-        return view('transactions.index', compact('transactions','transactionsReport'));
+        return view('transactions.index', compact('transactions','transactionsReports'));
     }
 
     public function create()

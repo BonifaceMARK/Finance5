@@ -23,16 +23,87 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="row">
-
-
+            <div class="container">
+                <h2>Gantt Chart</h2>
+                <div class="row">
+                    @foreach ($projects as $project)
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">{{ $project->project_name }}</div>
+                                <div class="card-body">
+                                    @foreach ($project->tasks as $task)
+                                        <div class="task" style="margin-left: {{ $task->start_date_position }}px; width: {{ $task->duration }}px;">
+                                            <span>{{ $task->task_name }} ({{ $task->start_date }} - {{ $task->end_date }})</span>
+                                            <form action="{{ route('tasks.destroy', ['taskId' => $task->id, 'projectId' => $project->id]) }}" method="POST" class="delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </section>
+
+        <!-- Card with header and footer -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create Project <button type="submit" class="btn btn-primary">Create Project</button></h5>
+                <form action="{{ route('projects.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="project_name">Project Name:</label>
+                        <input type="text" class="form-control" id="project_name" name="project_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="start_date">Start Date:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">End Date:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                    </div>
+
+                    <div class="card-title">Add Tasks <button type="button" class="btn btn-success" id="add_task">Add Task</button>
+                        </div>
+                    <div id="tasks">
+                        <div class="form-group">
+                            <input type="text" class="form-control mb-2" name="tasks[]" placeholder="Task Name" required>
+                            <input type="date" class="form-control mb-2" name="task_start_dates[]" placeholder="Start Date" required>
+                            <input type="date" class="form-control mb-2" name="task_end_dates[]" placeholder="End Date" required>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div><!-- End Card with header and footer -->
 
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
     @include('layout.footer')
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#add_task").click(function(){
+                $("#tasks").append('<div class="form-group task-item"><input type="text" class="form-control" name="tasks[]" placeholder="Task Name" required><input type="date" class="form-control mb-2" name="task_start_dates[]" placeholder="Start Date" required><input type="date" class="form-control mb-2" name="task_end_dates[]" placeholder="End Date" required><button type="button" class="btn btn-danger btn-sm delete-task">Delete</button></div>');
+            });
+
+            // Handle task deletion
+            $(document).on("click", ".delete-task", function(){
+                var confirmation = confirm("Are you sure you want to delete this task?");
+                if (confirmation) {
+                    // Proceed with deletion
+                    $(this).closest('.task-item').remove();
+                }
+            });
+        });
+    </script>
 
 
 </body>

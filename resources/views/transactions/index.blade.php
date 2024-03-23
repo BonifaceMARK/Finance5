@@ -93,6 +93,13 @@
                 <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#paymentviewModal">
                     <i class="bi bi-view-list"></i> Payments
                 </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tokenModal">
+                    Transaction Report
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transactionModal">
+                    Open Transaction Modal
+                </button>
+
             </div>
 
             </div>
@@ -102,17 +109,17 @@
 
         <div class="row">
             <!-- Card with MasterCard -->
-            <div class="col-md-3">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">MasterCard</h5>
+                        <h5 class="card-title">Master Card</h5>
                         <img src="{{ asset('assets/img/master.png') }}" alt="MasterCard Logo" class="img-fluid">
                     </div>
                 </div><!-- End Card with MasterCard -->
             </div>
 
             <!-- Card with Visa -->
-            <div class="col-md-3">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">Visa</h5>
@@ -121,8 +128,18 @@
                 </div><!-- End Card with Visa -->
             </div>
 
+            <div class="col-lg-2">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Aub</h5>
+                        <img src="{{ asset('assets/img/aub.png') }}" alt="Visa Logo" class="img-fluid">
+                    </div>
+                </div><!-- End Card with Visa -->
+            </div>
+
+
             <!-- Card with American Express -->
-            <div class="col-md-3">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">American Express</h5>
@@ -132,13 +149,23 @@
             </div>
 
             <!-- Card with Discover -->
-            <div class="col-md-3">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">Gcash</h5>
                         <img src="{{ asset('assets/img/gcash.png') }}" alt="Gcash" class="img-fluid">
                     </div>
                 </div><!-- End Card with Discover -->
+            </div>
+
+            <!-- Card with Paypal -->
+            <div class="col-lg-2">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Paypal</h5>
+                        <img src="{{ asset('assets/img/paypal.jpg') }}" alt="paypal" class="img-fluid">
+                    </div>
+                </div><!-- End Card with Paypal -->
             </div>
         </div><!-- End row -->
 
@@ -171,41 +198,43 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="card">
+                        <div class="container">
 
-                        <div class="card-body">
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transactionsReport as $report)
+                            @if ($transactionsReports->isEmpty())
+                                <p>No transactions reports found.</p>
+                            @else
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $report->id }}</td>
-                                            <td>{{ $report->transactionName }}</td>
-                                            <td>{{ $report->transactionType }}</td>
-                                            <td>{{ $report->transactionAmount }}</td>
-                                            <td class="real-time-date">{{ $report->transactionDate }}</td>
-                                            <td>{{ $report->transactionStatus }}</td>
-                                            <td>
-                                                <a href="{{ route('transactions-report.show', $report->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-                                            </td>
+                                            <th style="background-color: lightblue; padding: 10px;">ID</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Name</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Type</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Amount</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Date</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Status</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Reason for Cancellation</th>
+                                            <th style="background-color: lightblue; padding: 10px;">Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($transactionsReports as $report)
+                                            <tr>
+                                                <td>{{ $report->id }}</td>
+                                                <td>{{ $report->transactionName }}</td>
+                                                <td>{{ $report->transactionType }}</td>
+                                                <td>{{ $report->transactionAmount }}</td>
+                                                <td>{{ $report->transactionDate }}</td>
+                                                <td>{{ $report->transactionStatus }}</td>
+                                                <td>{{ $report->reasonForCancellation }}</td>
+                                                <td>
+                                                    <a href="{{ route('transactions-reports.show', $report->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                                    <!-- Add other action buttons as needed -->
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
                         </div>
 
                     </div>
@@ -300,25 +329,6 @@
 <section class="section dashboard">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                       <!-- Card with an image on top -->
-          <h5 class="card-title">Transaction Report</h5>
-          <p class="card-text"></p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tokenModal">
-            Transaction Report
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transactionModal">
-            Open Transaction Modal
-        </button>
-
-        </div>
-      </div><!-- End Card with an image on top -->
-
-      <div class="col">
-
-
-    </div>
 
 <!-- Modal -->
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
@@ -341,11 +351,12 @@
                         <option value="">Select Transaction Type</option>
                         <option value="MasterCard">MasterCard</option>
                         <option value="Visa">Visa</option>
-                        <option value="American ">American</option>
-                        <option value="Gcash ">Gcash</option>
+                        <option value="Aub">Aub</option>
+                        <option value="American">American</option>
+                        <option value="Gcash">Gcash</option>
+                        <option value="Paypal">Paypal</option>
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label for="transactionAmount" class="form-label">Amount</label>
                     <input type="number" class="form-control" id="transactionAmount" name="transactionAmount" required>
@@ -356,13 +367,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="transactionStatus" class="form-label">Status</label>
-                    <input type="text" class="form-control" id="transactionStatus" name="transactionStatus" value="Pending" disabled>
+                    <input type="text" class="form-control" id="transactionStatus" name="transactionStatus" value="Pending" readonly>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <!-- Add a Cancel button -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
             </form>
+
         </div>
     </div>
 </div>

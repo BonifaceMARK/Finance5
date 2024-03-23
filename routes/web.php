@@ -5,14 +5,16 @@ use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StandardController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\TransactionsReportController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\ApiController;
 
 
 
 Route::get('/cac', [CommunicationController::class, 'index'])->name('cac.index');
+Route::post('/projects/create', [CommunicationController::class, 'store'])->name('projects.store');
+Route::delete('/tasks/{taskId}/{projectId}', [CommunicationController::class, 'taskdestroy'])->name('tasks.destroy');
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,13 +28,14 @@ Route::get('/signout', [LoginController::class, 'signout'])->name('signout');
 Route::get('/standard', [StandardController::class, 'standardDash'])->name('accounting');
 
 
-Route::get('/transactions-report', [TransactionsReportController::class, 'indexReport'])->name('transactions-report.index');
-Route::get('/transactions-report/create', [TransactionsReportController::class, 'createReportReport'])->name('transactions-report.create');
-Route::post('/transactions-report', [TransactionsReportController::class, 'storeReport'])->name('transactions-report.store');
-Route::get('/transactions-report/{id}', [TransactionsReportController::class, 'showReport'])->name('transactions-report.show');
+Route::get('/transactions-report', [PaymentController::class, 'index'])->name('transactions-report.index');
+
+Route::post('/transactions-report', [PaymentController::class, 'store'])->name('transactions-report.store');
+Route::get('/transactions-report/{id}', [PaymentController::class, 'showReport'])->name('transactions-reports.show');
 
 
-Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
-Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
-Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show');
+
+Route::get('/transactions', [TokenController::class, 'index'])->name('transactions.index');
+Route::get('/transactions/create', [TokenController::class, 'create'])->name('transactions.create');
+Route::post('/transactions', [TokenController::class, 'store'])->name('transactions.store');
+Route::get('/transactions/{id}', [TokenController::class, 'show'])->name('transactions.show');

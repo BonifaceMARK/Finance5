@@ -21,7 +21,7 @@
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="card" id="transactionDetailsCard">
                     <div class="card-body">
                         <h2>Transaction Details</h2>
                         <dl class="row">
@@ -48,9 +48,35 @@
                         </dl>
                     </div>
                 </div>
+                <div>  <button id="printBtn" class="btn btn-primary"><i class="bi bi-printer-fill"></i> Print</button>
+                <a href="{{ route('transactions.index') }}" class="btn btn-secondary">Back</a>
             </div>
         </div>
     </section>
 </main>
 
 @include('layout.footer')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script>
+    var downloadCounter = 1; // Initialize counter
+
+    document.getElementById('printBtn').addEventListener('click', function() {
+        html2canvas(document.getElementById('transactionDetailsCard'), {
+            onrendered: function(canvas) {
+                var img = canvas.toDataURL('image/jpeg'); // Convert canvas to image as JPEG
+                var link = document.createElement('a');
+
+                // Generate filename with an incremented ID
+                var filename = 'payment_no_' + downloadCounter + '.jpg';
+
+                link.download = filename; // Set filename
+                link.href = img;
+                link.click();
+
+                downloadCounter++; // Increment counter
+            }
+        });
+    });
+</script>
+

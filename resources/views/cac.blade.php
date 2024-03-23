@@ -21,40 +21,53 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+ <!-- Card with an image overlay -->
+ <div class="card">
+    <img src="{{asset('assets/img/collab.jpg')}}" class="card-img-top" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">Communication & Collaboration</h5>
+      <p class="card-text">Effective communication and collaboration are vital components of successful project management. They ensure that team members are aligned, tasks are coordinated, and project goals are achieved efficiently. One powerful tool for facilitating communication and collaboration within a project team is the Gantt chart.</p>
+   <h2 class="card-text">Gantt Chart</h2>
+      <section class="section dashboard">
+        <div class="container">
 
-        <section class="section dashboard">
-            <div class="container">
-                <h2>Gantt Chart</h2>
-                <div class="row">
-                    @foreach ($projects as $project)
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header">{{ $project->project_name }}</div>
-                                <div class="card-body">
-                                    @foreach ($project->tasks as $task)
-                                        <div class="task" style="margin-left: {{ $task->start_date_position }}px; width: {{ $task->duration }}px;">
-                                            <span>{{ $task->task_name }} ({{ $task->start_date }} - {{ $task->end_date }})</span>
-                                            <form action="{{ route('tasks.destroy', ['taskId' => $task->id, 'projectId' => $project->id]) }}" method="POST" class="delete-form">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
-                                        </div>
-                                    @endforeach
-                                </div>
+
+
+
+
+            <div class="row">
+                @foreach ($projects as $project)
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">{{ $project->project_name }}</div>
+                            <div class="card-body">
+                                @foreach ($project->tasks as $task)
+                                    <div class="task" style="margin-left: {{ $task->start_date_position }}px; width: {{ $task->duration }}px;">
+                                        <span>{{ $task->task_name }} ({{ $task->start_date }} - {{ $task->end_date }})</span>
+                                        <form action="{{ route('tasks.destroy', ['taskId' => $task->id, 'projectId' => $project->id]) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
-        </section>
+        </div>
+    </section>
+    </div>
+  </div><!-- End Card with an image overlay -->
+
 
         <!-- Card with header and footer -->
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Create Project <button type="submit" class="btn btn-primary">Create Project</button></h5>
+
                 <form action="{{ route('projects.store') }}" method="POST">
-                    @csrf
+                    @csrf <h5 class="card-title"><button type="submit" class="btn btn-primary">Create Project</button></h5>
                     <div class="form-group">
                         <label for="project_name">Project Name:</label>
                         <input type="text" class="form-control" id="project_name" name="project_name" required>
@@ -68,7 +81,7 @@
                         <input type="date" class="form-control" id="end_date" name="end_date" required>
                     </div>
 
-                    <div class="card-title">Add Tasks <button type="button" class="btn btn-success" id="add_task">Add Task</button>
+                    <div class="card-title"> <button type="button" class="btn btn-success" id="add_task">Add Task</button>
                         </div>
                     <div id="tasks">
                         <div class="form-group">

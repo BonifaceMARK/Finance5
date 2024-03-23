@@ -16,9 +16,9 @@ class CommunicationController extends Controller
     {
         // Retrieve all projects with their tasks
         $projects = Project::with('tasks')->get();
-
+        $tasks = Task::all();
         // Pass the projects data to the view
-        return view('cac', compact('projects'));
+        return view('cac', compact('projects','tasks'));
     }
     public function store(Request $request)
     {

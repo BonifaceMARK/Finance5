@@ -264,7 +264,7 @@
     <!-- ======= Portfolio Section ======= -->
 
   <!-- ======= Team Section ======= -->
-<section id="team" class="team section-bg">
+<!--<section id="team" class="team section-bg">
     <div class="container" data-aos="fade-up">
 
       <div class="section-title">
@@ -276,7 +276,7 @@
 
         <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
           <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{ asset('assets/img/devmark.jpg') }}" class="img-fluid" alt=""></div>
+            <div class="pic"><img src="" class="img-fluid" alt=""></div>
             <div class="member-info">
               <h4>Mark Luis</h4>
               <span>Programmer</span>
@@ -292,7 +292,7 @@
 
         <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
           <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{ asset('assets/img/kayla.jpg') }}" class="img-fluid" alt=""></div>
+            <div class="pic"><img src="" class="img-fluid" alt=""></div>
             <div class="member-info">
               <h4>Kayla Suarez Campana</h4>
               <span>Team Leader</span>
@@ -309,7 +309,7 @@
 
         <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
           <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{ asset('assets/img/devmath.JPG') }}" class="img-fluid" alt=""></div>
+            <div class="pic"><img src="" class="img-fluid" alt=""></div>
             <div class="member-info">
               <h4>Mathew Laxamana</h4>
               <span>System Analyst</span>
@@ -324,7 +324,7 @@
 
         <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
           <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{ asset('assets/img/john.jpg') }}" class="img-fluid" alt=""></div>
+            <div class="pic"><img src="" class="img-fluid" alt=""></div>
             <div class="member-info">
               <h4>John Paul Rosales</h4>
               <span>Network Analyst</span>
@@ -341,7 +341,7 @@
 
         <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
           <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{ asset('assets/img/princess.jpg') }}" class="img-fluid" alt=""></div>
+            <div class="pic"><img src="" class="img-fluid" alt=""></div>
             <div class="member-info">
               <h4>Princess Gem Recopuerto</h4>
               <span>Document Analyst</span>
@@ -359,7 +359,7 @@
       </div>
 
     </div>
-  </section><!-- End Team Section -->
+  </section>--><!-- End Team Section -->
 
     <!-- ======= Pricing Section ======= -->
 

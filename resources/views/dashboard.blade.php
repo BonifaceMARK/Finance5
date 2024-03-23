@@ -51,7 +51,7 @@
                         <td>{{ $transaction->transactionName }}</td>
                         <td>{{ $transaction->transactionType }}</td>
                         <td>${{ $transaction->transactionAmount }}</td>
-                        <td>{{ $transaction->transactionDate }}</td>
+                        <td>{{ $transaction->created_at }}</td>
                         <td><span class="badge bg-{{ $transaction->transactionStatus == 'Approved' ? 'success' : ($transaction->transactionStatus == 'Pending' ? 'warning' : 'danger') }}">{{ $transaction->transactionStatus }}</span></td>
                     </tr>
                     @endforeach
@@ -64,66 +64,54 @@
 </div><!-- End Recent Sales -->
 
     <!-- Recent Activity -->
-    <div class="card">
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Recent Activity <span>| Today</span></h5>
 
-
-        <div class="card-body">
-          <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-          <div class="activity">
-
+        <div class="activity">
+            @foreach($recentTransactions as $transaction)
             <div class="activity-item d-flex">
-              <div class="activite-label">32 min</div>
-              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-              <div class="activity-content">
-                Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-              </div>
+                <div class="activite-label">{{ $transaction->created_at->diffForHumans() }}</div>
+                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                <div class="activity-content">
+                    Transaction: {{ $transaction->total }}
+                </div>
             </div><!-- End activity item-->
+            @endforeach
 
+            @foreach($recentReports as $report)
             <div class="activity-item d-flex">
-              <div class="activite-label">56 min</div>
-              <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-              <div class="activity-content">
-                Voluptatem blanditiis blanditiis eveniet
-              </div>
+                <div class="activite-label">{{ $report->created_at->diffForHumans() }}</div>
+                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                <div class="activity-content">
+                    Report: {{ $report->transactionName }}
+                </div>
             </div><!-- End activity item-->
+            @endforeach
 
+            @foreach($recentTasks as $task)
             <div class="activity-item d-flex">
-              <div class="activite-label">2 hrs</div>
-              <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-              <div class="activity-content">
-                Voluptates corrupti molestias voluptatem
-              </div>
+                <div class="activite-label">{{ $task->created_at->diffForHumans() }}</div>
+                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                <div class="activity-content">
+                    Task: {{ $task->task_name }}
+                </div>
             </div><!-- End activity item-->
+            @endforeach
 
+            @foreach($recentProjects as $project)
             <div class="activity-item d-flex">
-              <div class="activite-label">1 day</div>
-              <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-              <div class="activity-content">
-                Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-              </div>
+                <div class="activite-label">{{ $project->created_at->diffForHumans() }}</div>
+                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                <div class="activity-content">
+                    Project: {{ $project->project_name }}
+                </div>
             </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 days</div>
-              <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-              <div class="activity-content">
-                Est sit eum reiciendis exercitationem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">4 weeks</div>
-              <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-              <div class="activity-content">
-                Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-              </div>
-            </div><!-- End activity item-->
-
-          </div>
-
+            @endforeach
         </div>
-      </div><!-- End Recent Activity -->
+    </div>
+</div><!-- End Recent Activity -->
+
 
 
             <!-- Top Selling -->

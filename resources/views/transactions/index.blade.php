@@ -1,6 +1,6 @@
 @extends('layout.title')
 
-@section('title', 'Transactions')
+@section('title', 'Payment Gateways')
 @include('layout.title')
 
 @include('layout.header')
@@ -93,12 +93,6 @@
                 <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#paymentviewModal">
                     <i class="bi bi-view-list"></i> Payments
                 </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tokenModal">
-                    Transaction Report
-                </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transactionModal">
-                    Open Transaction Modal
-                </button>
 
             </div>
 
@@ -189,7 +183,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="paymentviewModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="transactionModalLabel">Payments</h5>
@@ -199,44 +193,45 @@
                 <div class="container">
                     <div class="card">
                         <div class="container">
-
                             @if ($transactionsReports->isEmpty())
                                 <p>No transactions reports found.</p>
                             @else
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="background-color: lightblue; padding: 10px;">ID</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Name</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Type</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Amount</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Date</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Status</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Reason for Cancellation</th>
-                                            <th style="background-color: lightblue; padding: 10px;">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($transactionsReports as $report)
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $report->id }}</td>
-                                                <td>{{ $report->transactionName }}</td>
-                                                <td>{{ $report->transactionType }}</td>
-                                                <td>{{ $report->transactionAmount }}</td>
-                                                <td>{{ $report->transactionDate }}</td>
-                                                <td>{{ $report->transactionStatus }}</td>
-                                                <td>{{ $report->reasonForCancellation }}</td>
-                                                <td>
-                                                    <a href="{{ route('transactions-reports.show', $report->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-                                                    <!-- Add other action buttons as needed -->
-                                                </td>
+                                                <th style="background-color: lightblue; padding: 10px;">ID</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Name</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Type</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Amount</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Date</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Status</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Reason for Cancellation</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Action</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($transactionsReports as $report)
+                                                <tr>
+                                                    <td>{{ $report->id }}</td>
+                                                    <td>{{ $report->transactionName }}</td>
+                                                    <td>{{ $report->transactionType }}</td>
+                                                    <td>{{ $report->transactionAmount }}</td>
+                                                    <td>{{ $report->transactionDate }}</td>
+                                                    <td>{{ $report->transactionStatus }}</td>
+                                                    <td>{{ $report->reasonForCancellation }}</td>
+                                                    <td>
+                                                        <a href="{{ route('transactions-reports.show', $report->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                                        <a href="{{ route('transactions.cancel-form', $report->id) }}" class="btn btn-danger">Cancel Transaction</a>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             @endif
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -246,11 +241,6 @@
         </div>
     </div>
 </div>
-
-        </div>
-      </div><!-- End Card with titles, buttons, and links -->
-
-
 
 
 
@@ -371,7 +361,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <!-- Add a Cancel button -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
             </form>
 
         </div>
@@ -379,47 +368,7 @@
 </div>
 </div>
 
-<!-- Cancel Modal -->
-<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="cancelModalLabel">Cancel Transaction</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Are you sure you want to cancel this transaction?
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelreasonModal">Cancel Transaction</button>
 
-        </div>
-    </div>
-</div>
-</div>
-
-
-    <!-- Cancel Modal -->
-<div class="modal fade" id="cancelreasonModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="cancelModalLabel">Reason for Cancellation</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <label for="reasonForCancellation" class="form-label">Reason for Cancellation</label>
-            <input type="text" class="form-control" id="reasonForCancellation" name="reasonForCancellation">
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- You can add further actions like AJAX request to handle cancellation -->
-        </div>
-    </div>
-</div>
-</div>
 
 
 
@@ -473,4 +422,5 @@
     // Set interval to update the date every 1 second (1000 milliseconds)
     setInterval(updateRealTimeDate, 1000);
 </script>
+
 @include('layout.footer')

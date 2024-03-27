@@ -28,7 +28,10 @@
       <h5 class="card-title">Communication & Collaboration</h5>
       <p class="card-text">Effective communication and collaboration are vital components of successful project management. They ensure that team members are aligned, tasks are coordinated, and project goals are achieved efficiently. One powerful tool for facilitating communication and collaboration within a project team is the Gantt chart.</p>
    <h2 class="card-text">Gantt Chart</h2>
-      <section class="section dashboard">
+
+    </div>
+  </div><!-- End Card with an image overlay -->
+  <section class="section dashboard">
         <div class="container">
 
 
@@ -58,9 +61,6 @@
             </div>
         </div>
     </section>
-    </div>
-  </div><!-- End Card with an image overlay -->
-
 
         <!-- Card with header and footer -->
         <div class="card">

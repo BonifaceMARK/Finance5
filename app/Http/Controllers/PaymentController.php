@@ -13,6 +13,25 @@ class PaymentController extends Controller
         $transactionsReports = TransactionsReport::all();
         return view('transactions.index', compact('transactionsReports'));
     }
+    public function showCancelForm($id)
+    {
+        $transactionsReports = TransactionsReport::findOrFail($id);
+        return view('transactions-report.cancel', compact('transactionsReports'));
+    }
+    public function processCancellation(Request $request, $id)
+    {
+        $request->validate([
+            'reason' => 'required|string'
+        ]);
+
+        $transactionsReports = TransactionsReport::findOrFail($id);
+        $transactionsReports->update([
+            'reasonForCancellation' => $request->input('reason'),
+            'status' => 'cancelled' // Update the status to 'cancelled'
+        ]);
+
+        return redirect()->route('transactions.index')->with('success', 'Transaction cancellation processed successfully.');
+    }
 
     public function store(Request $request)
     {

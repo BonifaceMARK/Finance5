@@ -4,35 +4,35 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use App\Models\Message;
+use Illuminate\Support\Facades\Log;
+use App\Models\TransactionsReport;
 
 class ApiController extends Controller
 {
-    public function fetchMessages()
-    {
-        $client = new Client();
-        $response = $client->get('http://api.example.com/messages');
-        $messages = json_decode($response->getBody()->getContents(), true);
 
-        // Return or use the $messages data as needed
-        return $messages;
+    public function Payment()
+    {
+        try {
+            // Fetch transactions from the external API
+            $transactions = TransactionsReport::all();
+
+            // Return the transactions as JSON response
+            return response()->json($transactions);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error fetching transactions from external API: ' . $e->getMessage());
+
+            // Return    an error response
+            return response()->json(['error' => 'Failed to fetch transactions'], 500);
+        }
     }
-    public function sendMessage(Request $request)
+    public function test()
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'sender_id' => 'required|exists:users,id',
-            'recipient_id' => 'required|exists:users,id',
-            'content' => 'required|string',
-            'sender_name' => 'required|string',
-            'recipient_name' => 'required|string',
-        ]);
+        // Fetch data from the TransactionsReport model
+        $transactions = TransactionsReport::all();
 
-        // Create a new message
-        $message = Message::create($validatedData);
-
-        // Return the created message
-        return response()->json($message, 201);
+        // Return the data as JSON
+        return response()->json($transactions);
     }
 
 }

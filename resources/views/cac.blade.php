@@ -95,6 +95,38 @@
             </div>
         </div><!-- End Card with header and footer -->
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-header">Chat Box</div>
+
+                        <div class="card-body" id="chat-messages">
+                            @foreach ($messages as $message)
+                                <div class="message">
+                                    <div class="message-sender">{{ auth()->user()->email }} says:</div>
+                                    <div class="message-content">{{ $message->content }}</div>
+
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="card-footer">
+                            <form action="{{ route('chat.store') }}" method="post">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="text" name="content" class="form-control"
+                                        placeholder="Type your message...">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->

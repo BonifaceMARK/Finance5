@@ -15,10 +15,12 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->text('content');
             $table->timestamps();
-            $table->string('sender_name');
-            $table->string('recipient_name');
+
+            // Define foreign key constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

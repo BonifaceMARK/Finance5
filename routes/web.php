@@ -41,3 +41,8 @@ Route::get('/transactions', [TokenController::class, 'index'])->name('transactio
 Route::get('/transactions/create', [TokenController::class, 'create'])->name('transactions.create');
 Route::post('/transactions', [TokenController::class, 'store'])->name('transactions.store');
 Route::get('/transactions/{id}', [TokenController::class, 'show'])->name('transactions.show');
+
+
+// Route to store new messages
+Route::post('/chat', [CommunicationController::class, 'storeMessage'])->name('chat.store');
+Route::get('/communication', [ApiController::class, 'fetchMessage']);

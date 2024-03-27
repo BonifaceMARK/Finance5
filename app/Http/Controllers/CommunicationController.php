@@ -17,8 +17,22 @@ class CommunicationController extends Controller
         // Retrieve all projects with their tasks
         $projects = Project::with('tasks')->get();
         $tasks = Task::all();
+        $messages = Message::latest()->get();
         // Pass the projects data to the view
-        return view('cac', compact('projects','tasks'));
+        return view('cac', compact('projects','tasks','messages'));
+    }
+    public function storeMessage(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+        ]);
+
+        Message::create([
+            'user_id' => auth()->id(), // Assuming the user is authenticated
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->route('cac.index');
     }
     public function store(Request $request)
     {

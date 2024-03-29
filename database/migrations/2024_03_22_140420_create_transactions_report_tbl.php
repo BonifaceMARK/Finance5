@@ -10,6 +10,7 @@ class CreateTransactionsReportTbl extends Migration
     {
         Schema::create('transactions_report_tbl', function (Blueprint $table) {
             $table->id();
+            $table->string('productName'); // Add productName column
             $table->string('transactionName');
             $table->string('transactionType');
             $table->decimal('transactionAmount', 10, 2);

@@ -33,20 +33,27 @@
                   <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
 @csrf
 
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
-                      </div>
-                    </div>
+<div class="col-12">
+    <label for="yourEmail" class="form-label">Email</label>
+    <div class="input-group has-validation">
+        <span class="input-group-text" id="inputGroupPrepend">@</span>
+        <input type="email" name="email" class="form-control" id="yourEmail" required>
+        <div class="invalid-feedback">Please enter your email.</div>
+    </div>
+</div>
+
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                        <label for="yourPassword" class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">Please enter your password!</div>
                     </div>
+
 
                     <div class="col-12">
                       <div class="form-check">
@@ -58,7 +65,7 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="{{ url('pages-register.html') }}">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="{{ url('/register') }}">Create an account</a></p>
                     </div>
                   </form>
 
@@ -90,7 +97,18 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('yourPassword');
 
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+    });
+</script>
 </body>
 
 

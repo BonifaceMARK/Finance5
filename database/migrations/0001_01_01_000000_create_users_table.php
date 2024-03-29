@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-     /**
+    /**
      * Run the migrations.
      *
      * @return void
@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            $table->string('name');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('department'); // Adding department column
+            $table->rememberToken();
             $table->timestamps();
         });
     }

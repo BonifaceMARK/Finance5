@@ -22,61 +22,9 @@
         <div class="container">
             <div class="card">
                 <!-- Button trigger modal -->
-                      <!-- Button trigger modal -->
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="tokenModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="transactionModalLabel">Transaction Form</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('transactions.store') }}" method="POST">
-          @csrf
-          <div class="modal-body">
-              <div class="mb-3">
-                  <label for="total" class="form-label">Total</label>
-                  <input type="text" class="form-control" id="total" name="total">
-              </div>
-              <div class="mb-3">
-                  <label for="token" class="form-label">Token</label>
-                  <input type="text" class="form-control" id="token" name="token">
-              </div>
-              <div class="mb-3">
-                  <label for="contact_name" class="form-label">Contact Name</label>
-                  <input type="text" class="form-control" id="contact_name" name="contact_name">
-              </div>
-              <div class="mb-3">
-                  <label for="token_card_type" class="form-label">Token Card Type</label>
-                  <input type="text" class="form-control" id="token_card_type" name="token_card_type">
-              </div>
-              <div class="mb-3">
-                  <label for="phone" class="form-label">Phone</label>
-                  <input type="text" class="form-control" id="phone" name="phone">
-              </div>
-              <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="email" name="email">
-              </div>
-              <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" name="address">
-              </div>
-              <div class="mb-3">
-                  <label for="description" class="form-label">Description</label>
-                  <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+
     <div class="card">
         <div class="card-body">
           <h5 class="card-title">Payment Gateways</h5>
@@ -180,8 +128,7 @@
 
         </div>
 
-
-<!-- Modal -->
+<!-- Payment View Modal -->
 <div class="modal fade" id="paymentviewModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
@@ -201,6 +148,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="background-color: lightblue; padding: 10px;">ID</th>
+                                                <th style="background-color: lightblue; padding: 10px;">Product Name</th>
                                                 <th style="background-color: lightblue; padding: 10px;">Name</th>
                                                 <th style="background-color: lightblue; padding: 10px;">Type</th>
                                                 <th style="background-color: lightblue; padding: 10px;">Amount</th>
@@ -214,6 +162,7 @@
                                             @foreach ($transactionsReports as $report)
                                                 <tr>
                                                     <td>{{ $report->id }}</td>
+                                                    <td>{{ $report->productName }}</td>
                                                     <td>{{ $report->transactionName }}</td>
                                                     <td>{{ $report->transactionType }}</td>
                                                     <td>{{ $report->transactionAmount }}</td>
@@ -221,9 +170,11 @@
                                                     <td>{{ $report->transactionStatus }}</td>
                                                     <td>{{ $report->reasonForCancellation }}</td>
                                                     <td>
-                                                        <a href="{{ route('transactions-reports.show', $report->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
+                                                         <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#invoiceModal">
+                    Open Invoice Modal
+                </button>
                                                         <a href="{{ route('transactions.cancel-form', $report->id) }}" class="btn btn-danger">Cancel Transaction</a>
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -244,78 +195,7 @@
 
 
 
-<!-- Transaction Modal -->
-<div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="transactionModalLabel">Transactions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
 
-                    @if ($transactions->isEmpty())
-                        <div class="alert alert-info" role="alert">
-                            No transactions found.
-                        </div>
-                    @else
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color: lightblue; padding: 10px;">ID</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Total</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Contact Name</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Email</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Token Card Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transactions as $transaction)
-                                    <tr style="background-color: lightblue;">
-                                        <td style="padding: 10px;">{{ $transaction->id }}</td>
-                                        <td style="padding: 10px;">{{ $transaction->total }}</td>
-                                        <td style="padding: 10px;">{{ $transaction->contact_name }}</td>
-                                        <td style="padding: 10px;">{{ $transaction->email }}</td>
-                                        <td style="padding: 10px;">{{ $transaction->token_card_type }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color: lightblue; padding: 10px;">Phone</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Token</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Address</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Description</th>
-                                        <th style="background-color: lightblue; padding: 10px;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transactions as $transaction)
-                                        <tr>
-                                            <td>{{ $transaction->phone }}</td>
-                                            <td>{{ $transaction->token }}</td>
-                                            <td>{{ $transaction->address }}</td>
-                                            <td>{{ $transaction->description }}</td>
-                                            <td>
-                                                <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-info"><i class="bi bi-printer-fill"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <section class="section dashboard">
     <div class="row">
         <div class="col-lg-12">
@@ -332,7 +212,11 @@
             <form action="{{ route('transactions-report.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="transactionName" class="form-label">Name</label>
+                    <label for="productName" class="form-label">Product or Item</label>
+                    <input type="text" class="form-control" id="productName" name="productName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="transactionName" class="form-label">Transaction Name</label>
                     <input type="text" class="form-control" id="transactionName" name="transactionName" required>
                 </div>
                 <div class="mb-3">
@@ -363,6 +247,7 @@
                 <!-- Add a Cancel button -->
             </form>
 
+
         </div>
     </div>
 </div>
@@ -374,9 +259,101 @@
 
                 </div>
             </div>
-        </div>
-    </div>
+
+
 </section>
+    </section>
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="invoiceModalLabel">Invoice</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card" id="invoiceCard">
+                                    <div class="card-header">
+                                        <h2 class="text-center">Invoice</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Your invoice content here -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4>From:</h4>
+                                                <address>
+                                                    Your Company Name<br>
+                                                    Address Line 1<br>
+                                                    Address Line 2<br>
+                                                    City, State, Zip<br>
+                                                    Phone: (123) 456-7890<br>
+                                                    Email: info@example.com
+                                                </address>
+                                            </div>
+                                            <div class="col-md-6 text-md-end">
+                                                <h4>To:</h4>
+                                                <address>
+                                                    Customer Name<br>
+                                                    Address Line 1<br>
+                                                    Address Line 2<br>
+                                                    City, State, Zip<br>
+                                                    Phone: (123) 456-7890<br>
+                                                    Email: customer@example.com
+                                                </address>
+                                                <p><strong>Invoice Date:</strong> {{ $transaction->transactionDate }}</p>
+                                                <p><strong>Invoice Number:</strong> #{{ $transaction->id }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive mt-4">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Description</th>
+                                                        <th>Quantity</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ $transaction->productName }}</td>
+                                                        <td>1</td>
+                                                        <td>{{ $transaction->transactionAmount }}</td>
+                                                        <td>{{ $transaction->transactionAmount }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Subtotal:</label>
+                                                    <div class="form-control">{{ $transaction->transactionAmount }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-md-end">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Total:</label>
+                                                    <div class="form-control">{{ $transaction->transactionAmount }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button id="printBtn" class="btn btn-primary"><i class="bi bi-printer-fill"></i> Print Invoice</button>
+                                <a href="{{ route('transactions.index') }}" class="btn btn-secondary">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

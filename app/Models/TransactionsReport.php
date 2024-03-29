@@ -12,6 +12,7 @@ class TransactionsReport extends Model
     protected $table = 'transactions_report_tbl';
 
     protected $fillable = [
+        'productName', // Add productName attribute
         'transactionName',
         'transactionType',
         'transactionAmount',

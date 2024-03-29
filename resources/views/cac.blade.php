@@ -21,135 +21,114 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
- <!-- Card with an image overlay -->
- <div class="card">
-    <img src="{{asset('assets/img/collab.jpg')}}" class="card-img-top" alt="...">
-    <div class="card-img-overlay">
-      <h5 class="card-title">Communication & Collaboration</h5>
-      <p class="card-text">Effective communication and collaboration are vital components of successful project management. They ensure that team members are aligned, tasks are coordinated, and project goals are achieved efficiently. One powerful tool for facilitating communication and collaboration within a project team is the Gantt chart.</p>
-   <h2 class="card-text">Gantt Chart</h2>
 
-    </div>
-  </div><!-- End Card with an image overlay -->
-  <section class="section dashboard">
-        <div class="container">
-
-
-
-
-
-            <div class="row">
-                @foreach ($projects as $project)
+        <section class="section create-project">
+            <div class="container">
+                <div class="row">
+                    <!-- FullCalendar -->
                     <div class="col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header">{{ $project->project_name }}</div>
+                        <div class="card">
                             <div class="card-body">
-                                @foreach ($project->tasks as $task)
-                                    <div class="task" style="margin-left: {{ $task->start_date_position }}px; width: {{ $task->duration }}px;">
-                                        <span>{{ $task->task_name }} ({{ $task->start_date }} - {{ $task->end_date }})</span>
-                                        <form action="{{ route('tasks.destroy', ['taskId' => $task->id, 'projectId' => $project->id]) }}" method="POST" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </div>
-                                @endforeach
+                                <h5 class="card-title">Calendar View</h5>
+                                <div id="calendar"></div>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-        <!-- Card with header and footer -->
-        <div class="card">
-            <div class="card-body">
-
-                <form action="{{ route('projects.store') }}" method="POST">
-                    @csrf <h5 class="card-title"><button type="submit" class="btn btn-primary">Create Project</button></h5>
-                    <div class="form-group">
-                        <label for="project_name">Project Name:</label>
-                        <input type="text" class="form-control" id="project_name" name="project_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="end_date">End Date:</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                    </div>
-
-                    <div class="card-title"> <button type="button" class="btn btn-success" id="add_task">Add Task</button>
-                        </div>
-                    <div id="tasks">
-                        <div class="form-group">
-                            <input type="text" class="form-control mb-2" name="tasks[]" placeholder="Task Name" required>
-                            <input type="date" class="form-control mb-2" name="task_start_dates[]" placeholder="Start Date" required>
-                            <input type="date" class="form-control mb-2" name="task_end_dates[]" placeholder="End Date" required>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div><!-- End Card with header and footer -->
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="card">
-                        <div class="card-header">Chat Box</div>
-
-                        <div class="card-body" id="chat-messages">
-                            @foreach ($messages as $message)
-                                <div class="message">
-                                    <div class="message-sender">{{ auth()->user()->email }} says:</div>
-                                    <div class="message-content">{{ $message->content }}</div>
-
+                    <!-- Project and Task Tabs -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Create Project or Task</h5>
+                                <!-- Tabs -->
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" type="button" role="tab" aria-controls="project" aria-selected="true">Project</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task" type="button" role="tab" aria-controls="task" aria-selected="false">Task</button>
+                                    </li>
+                                </ul>
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="myTabContent">
+                                    <!-- Project Tab Pane -->
+                                    <div class="tab-pane fade show active" id="project" role="tabpanel" aria-labelledby="project-tab">
+                                        <form action="{{ route('projects.store') }}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="project_name">Project Name:</label>
+                                                <input type="text" class="form-control" id="project_name" name="project_name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="start_date">Start Date:</label>
+                                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="end_date">End Date:</label>
+                                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Create Project</button>
+                                        </form>
+                                    </div>
+                                    <!-- Task Tab Pane -->
+                                    <div class="tab-pane fade" id="task" role="tabpanel" aria-labelledby="task-tab">
+                                        <form action="{{ route('tasks.store') }}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="task_name">Task Name:</label>
+                                                <input type="text" class="form-control" id="task_name" name="task_name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="task_start_date">Start Date:</label>
+                                                <input type="date" class="form-control" id="task_start_date" name="task_start_date" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="task_end_date">End Date:</label>
+                                                <input type="date" class="form-control" id="task_end_date" name="task_end_date" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Create Task</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            @endforeach
-                        </div>
-
-                        <div class="card-footer">
-                            <form action="{{ route('chat.store') }}" method="post">
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" name="content" class="form-control"
-                                        placeholder="Type your message...">
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </section>
 
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
     @include('layout.footer')
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- FullCalendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/fullcalendar.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $("#add_task").click(function(){
-                $("#tasks").append('<div class="form-group task-item"><input type="text" class="form-control" name="tasks[]" placeholder="Task Name" required><input type="date" class="form-control mb-2" name="task_start_dates[]" placeholder="Start Date" required><input type="date" class="form-control mb-2" name="task_end_dates[]" placeholder="End Date" required><button type="button" class="btn btn-danger btn-sm delete-task">Delete</button></div>');
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                // Configuration options
+                initialView: 'dayGridMonth',
+                events: [
+                    // Example events data
+                    {
+                        title: 'Project Deadline',
+                        start: '2024-04-01',
+                        end: '2024-04-03',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Task Due',
+                        start: '2024-04-05',
+                        end: '2024-04-06',
+                        color: 'red'
+                    }
+                ]
             });
-
-            // Handle task deletion
-            $(document).on("click", ".delete-task", function(){
-                var confirmation = confirm("Are you sure you want to delete this task?");
-                if (confirmation) {
-                    // Proceed with deletion
-                    $(this).closest('.task-item').remove();
-                }
-            });
+            calendar.render();
         });
     </script>
-
 
 </body>
 

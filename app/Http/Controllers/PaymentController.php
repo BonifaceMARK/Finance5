@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Payment;
 use App\Models\TransactionsReport;
 
 class PaymentController extends Controller
@@ -10,51 +11,44 @@ class PaymentController extends Controller
 
     public function index()
     {
-        $transactionsReports = TransactionsReport::all();
-        return view('transactions.index', compact('transactionsReports'));
+        $payments = Payment::all();
+        return view('payment', compact('payments'));
     }
-    public function showCancelForm($id)
+
+    public function storePayment(Request $request)
     {
-        $transactionsReports = TransactionsReport::findOrFail($id);
-        return view('transactions-report.cancel', compact('transactionsReports'));
-    }
-    public function processCancellation(Request $request, $id)
-    {
+        // Validate the incoming request
         $request->validate([
-            'reason' => 'required|string'
+            'payment_method' => 'required|string', // Added validation for payment_method
+            'card_number' => 'required|string',
+
+            'cvv' => 'required|string',
+            'name_on_card' => 'required|string',
+            'expiry_date' => 'required|string',
         ]);
 
-        $transactionsReports = TransactionsReport::findOrFail($id);
-        $transactionsReports->update([
-            'reasonForCancellation' => $request->input('reason'),
-            'status' => 'cancelled' // Update the status to 'cancelled'
+        // Create a new payment record
+        Payment::create([
+            'payment_method' => $request->input('payment_method'), // Added payment_method
+            'card_number' => $request->input('card_number'),
+
+            'cvv' => $request->input('cvv'),
+            'name_on_card' => $request->input('name_on_card'),
+            'expiry_date' => $request->input('expiry_date'),
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction cancellation processed successfully.');
-    }
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'transactionName' => 'required|string',
-            'transactionType' => 'required|string',
-            'transactionAmount' => 'required|numeric',
-            'transactionDate' => 'required|date',
-            'transactionStatus' => 'required|string',
-            'reasonForCancellation' => 'string|nullable',
-        ]);
-
-        TransactionsReport::create($validatedData);
-
-        return redirect()->route('transactions.index')->with('success', 'Transaction report created successfully.');
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Payment successful.');
     }
 
 
-    // Action to show the details of a specific transaction
-    public function showReport($id)
+    public function cancelPayment(Payment $payment)
     {
-        $transaction = TransactionsReport::findOrFail($id);
-        return view('transactions-report.show', compact('transaction'));
+        // Cancel the payment
+        $payment->delete();
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Payment canceled.');
     }
 
 

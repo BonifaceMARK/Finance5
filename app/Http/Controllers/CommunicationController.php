@@ -17,71 +17,40 @@ class CommunicationController extends Controller
         // Retrieve all projects with their tasks
         $projects = Project::with('tasks')->get();
         $tasks = Task::all();
-        $messages = Message::latest()->get();
+
         // Pass the projects data to the view
-        return view('cac', compact('projects','tasks','messages'));
+        return view('cac', compact('projects','tasks'));
     }
-    public function storeMessage(Request $request)
+    public function storeProject(Request $request)
     {
-        $request->validate([
-            'content' => 'required|string|max:255',
-        ]);
-
-        Message::create([
-            'user_id' => auth()->id(), // Assuming the user is authenticated
-            'content' => $request->input('content'),
-        ]);
-
-        return redirect()->route('cac.index');
-    }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'project_name' => 'required|string|max:255',
+        // Validate project data
+        $validatedData = $request->validate([
+            'project_name' => 'required|string',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'tasks.*' => 'required|string|max:255',
-            'task_start_dates.*' => 'required|date',
-            'task_end_dates.*' => 'required|date|after_or_equal:task_start_dates.*',
+            'end_date' => 'required|date',
         ]);
 
-        // Create project
-        $project = Project::create([
-            'project_name' => $request->project_name,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
+        // Create a new project
+        Project::create($validatedData);
 
-        // Create tasks for the project
-        $tasks = [];
-        foreach ($request->tasks as $key => $taskName) {
-            $tasks[] = new Task([
-                'task_name' => $taskName,
-                'start_date' => $request->task_start_dates[$key],
-                'end_date' => $request->task_end_dates[$key],
-            ]);
-        }
-
-        $project->tasks()->saveMany($tasks);
-
-        return redirect()->route('cac.index')->with('success', 'Project created successfully!');
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Project created successfully.');
     }
 
-    public function taskdestroy($taskId)
+    public function storeTask(Request $request)
     {
-        $task = Task::findOrFail($taskId);
-        $projectId = $task->project_id;
+        // Validate task data
+        $validatedData = $request->validate([
+            'task_name' => 'required|string',
+            'task_start_date' => 'required|date',
+            'task_end_date' => 'required|date',
+        ]);
 
-        // Delete the task
-        $task->delete();
+        // Create a new task
+        Task::create($validatedData);
 
-        // Check if there are no more tasks in the project, then delete the project as well
-        if (Task::where('project_id', $projectId)->count() === 0) {
-            Project::findOrFail($projectId)->delete();
-        }
-
-        return redirect()->back()->with('success', 'Task and associated project deleted successfully!');
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Task created successfully.');
     }
-
 
 }

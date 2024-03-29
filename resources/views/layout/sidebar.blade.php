@@ -10,7 +10,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('transactions.index')}}">
+        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('payments.index')}}">
             <i class="bi bi-credit-card"></i><span>Payment</span>
         </a>
       </li><!-- End Components Nav -->

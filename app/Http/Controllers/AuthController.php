@@ -59,9 +59,7 @@ public function register(Request $request)
 
 public function loadLogin()
 {
-    if (Auth::check()) {
-        return redirect()->route('dashboard'); // Redirect authenticated users directly to the dashboard
-    }
+
 
     return view('login');
 }

@@ -3,7 +3,6 @@
 @section('title', 'Login')
 @include('layout.title')
 
-
 <body>
 
   <main>
@@ -22,7 +21,6 @@
               </div><!-- End Logo -->
 
               <div class="card mb-3">
-
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
@@ -30,30 +28,44 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
+                  <!-- Display success message if present -->
+                  @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                      {{ session('success') }}
+                    </div>
+                  @endif
+
+                  <!-- Display error message if present -->
+                  @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                      @foreach ($errors->all() as $error)
+                        {{ $error }}
+                      @endforeach
+                    </div>
+                  @endif
+
                   <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
-@csrf
-
-<div class="col-12">
-    <label for="yourEmail" class="form-label">Email</label>
-    <div class="input-group has-validation">
-        <span class="input-group-text" id="inputGroupPrepend">@</span>
-        <input type="email" name="email" class="form-control" id="yourEmail" required>
-        <div class="invalid-feedback">Please enter your email.</div>
-    </div>
-</div>
-
+                    @csrf
 
                     <div class="col-12">
-                        <label for="yourPassword" class="form-label">Password</label>
-                        <div class="input-group">
-                            <input type="password" name="password" class="form-control" id="yourPassword" required>
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                        <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="yourEmail" class="form-label">Email</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="email" name="email" class="form-control" id="yourEmail" required>
+                        <div class="invalid-feedback">Please enter your email.</div>
+                      </div>
                     </div>
 
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </div>
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
 
                     <div class="col-12">
                       <div class="form-check">
@@ -68,18 +80,12 @@
                       <p class="small mb-0">Don't have account? <a href="{{ url('/register') }}">Create an account</a></p>
                     </div>
                   </form>
-
                 </div>
               </div>
-
-
-
             </div>
           </div>
         </div>
-
       </section>
-
     </div>
   </main><!-- End #main -->
 
@@ -99,16 +105,14 @@
   <script src="{{ asset('assets/js/main.js') }}"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('yourPassword');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('yourPassword');
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.textContent = type === 'password' ? 'Show' : 'Hide';
-        });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show' : 'Hide';
+      });
     });
-</script>
+  </script>
 </body>
-
-

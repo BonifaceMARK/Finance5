@@ -14,11 +14,7 @@ class PaymentController extends Controller
         return view('transactions.index', compact('transactionsReports'));
     }
 
-public function showPayment($id)
-    {
-        $transaction = TransactionsReport::findOrFail($id);
-        return view('transactions.index', compact('transaction'));
-    }
+
     public function showCancelForm($id)
     {
         $transactionsReports = TransactionsReport::findOrFail($id);
@@ -26,17 +22,12 @@ public function showPayment($id)
     }
     public function processCancellation(Request $request, $id)
     {
-        $request->validate([
-            'reason' => 'required|string'
-        ]);
+        $transactionsReport = TransactionsReport::findOrFail($id);
 
-        $transactionsReports = TransactionsReport::findOrFail($id);
-        $transactionsReports->update([
-            'reasonForCancellation' => $request->input('reason'),
-            'status' => 'cancelled' // Update the status to 'cancelled'
-        ]);
+        // Delete the TransactionsReport
+        $transactionsReport->delete();
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction cancellation processed successfully.');
+        return redirect()->route('transactions.index')->with('success', 'Transaction has been deleted successfully.');
     }
 
     public function store(Request $request)
@@ -44,9 +35,12 @@ public function showPayment($id)
         $validatedData = $request->validate([
             'productName' => 'required|string', // Added productName field
             'transactionName' => 'required|string',
+            'paymentMethod' => 'required|string',
+            'cardType' => 'required|string',
             'transactionType' => 'required|string',
             'transactionAmount' => 'required|numeric',
             'transactionDate' => 'required|date',
+            'description' => 'nullable|string',
             'transactionStatus' => 'required|string',
             'reasonForCancellation' => 'string|nullable',
         ]);
@@ -55,8 +49,6 @@ public function showPayment($id)
 
         return redirect()->route('transactions.index')->with('success', 'Transaction report created successfully.');
     }
-
-
 
 
 

@@ -1,87 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Models\Message;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Task;
-use App\Models\Project;
+use App\Models\ChatMessage;
 
 class CommunicationController extends Controller
 {
 
-    public function index()
-    {
-        // Retrieve all projects with their tasks
-        $projects = Project::with('tasks')->get();
-        $tasks = Task::all();
-        $messages = Message::latest()->get();
-        // Pass the projects data to the view
-        return view('cac', compact('projects','tasks','messages'));
-    }
+  public function index()
+{
+    $messages = ChatMessage::latest()->limit(10)->get(); // Fetch full ChatMessage objects
+    return view('cac')->with('messages', $messages);
+}
+
+
     public function storeMessage(Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:255',
+            'message' => 'required|string',
         ]);
 
-        Message::create([
-            'user_id' => auth()->id(), // Assuming the user is authenticated
-            'content' => $request->input('content'),
-        ]);
+        $message = new ChatMessage();
+        $message->message = $request->input('message');
+        $message->save();
 
-        return redirect()->route('cac.index');
+        return redirect()->back()->with('success', 'Message sent successfully.');
     }
-    public function store(Request $request)
+
+    public function fetch()
     {
-        $request->validate([
-            'project_name' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'tasks.*' => 'required|string|max:255',
-            'task_start_dates.*' => 'required|date',
-            'task_end_dates.*' => 'required|date|after_or_equal:task_start_dates.*',
-        ]);
+        // Fetch the latest chat messages
+        $messages = ChatMessage::latest()->limit(10)->pluck('message');
 
-        // Create project
-        $project = Project::create([
-            'project_name' => $request->project_name,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
-
-        // Create tasks for the project
-        $tasks = [];
-        foreach ($request->tasks as $key => $taskName) {
-            $tasks[] = new Task([
-                'task_name' => $taskName,
-                'start_date' => $request->task_start_dates[$key],
-                'end_date' => $request->task_end_dates[$key],
-            ]);
-        }
-
-        $project->tasks()->saveMany($tasks);
-
-        return redirect()->route('cac.index')->with('success', 'Project created successfully!');
+        return response()->json($messages, 200);
     }
-
-    public function taskdestroy($taskId)
-    {
-        $task = Task::findOrFail($taskId);
-        $projectId = $task->project_id;
-
-        // Delete the task
-        $task->delete();
-
-        // Check if there are no more tasks in the project, then delete the project as well
-        if (Task::where('project_id', $projectId)->count() === 0) {
-            Project::findOrFail($projectId)->delete();
-        }
-
-        return redirect()->back()->with('success', 'Task and associated project deleted successfully!');
-    }
-
-
 }

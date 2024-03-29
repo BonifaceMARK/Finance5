@@ -14,9 +14,12 @@ class TransactionsReport extends Model
     protected $fillable = [
         'productName', // Add productName attribute
         'transactionName',
+        'paymentMethod', // Added paymentMethod attribute
+        'cardType', // Added cardType attribute
         'transactionType',
         'transactionAmount',
         'transactionDate',
+        'description', // Added description attribute
         'transactionStatus',
         'reasonForCancellation'
         // Add more fillable attributes if needed

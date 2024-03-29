@@ -284,7 +284,26 @@
     padding: 15px;
   }
 
-
+   .chat-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .chat-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .chat-input {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            width: calc(100% - 40px);
+            margin-right: 10px;
+        }
   .card-title {
     padding: 20px 0 15px 0;
     font-size: 18px;

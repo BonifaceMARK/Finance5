@@ -16,8 +16,6 @@ use App\Http\Controllers\FinanceController;
 
 
 Route::get('/cac', [CommunicationController::class, 'index'])->name('cac.index');
-Route::post('/projects/create', [CommunicationController::class, 'store'])->name('projects.store');
-Route::delete('/tasks/{taskId}/{projectId}', [CommunicationController::class, 'taskdestroy'])->name('tasks.destroy');
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +25,7 @@ Route::get('/register',[AuthController::class,'loadRegister']);
 Route::post('/register',[AuthController::class,'register'])->name('register');
 Route::get('/loginload',[AuthController::class,'loadLogin'])->name('loadlogin');
 Route::post('/login',[AuthController::class,'login'])->name('login');
-
+Route::get('/logout',[AuthController::class,'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -51,6 +49,6 @@ Route::post('/transactions', [TokenController::class, 'store'])->name('transacti
 Route::get('/transactions/{id}', [TokenController::class, 'show'])->name('transactions.show');
 
 
-// Route to store new messages
-Route::post('/chat', [CommunicationController::class, 'storeMessage'])->name('chat.store');
+Route::post('/chat/store', [CommunicationController::class, 'storeMessage'])->name('chat.store');
+Route::get('/chat/fetch', [CommunicationController::class, 'fetch'])->name('chat.fetch');
 Route::get('/communication', [ApiController::class, 'fetchMessage']);

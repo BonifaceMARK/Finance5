@@ -28,6 +28,12 @@
         </a>
       </li><!-- End Icons Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('pfrs.checklist.index')}}">
+          <span><i class="bi bi-clipboard-check"></i>Checklist</span>
+        </a>
+      </li><!-- End Icons Nav -->
+
 
     </ul>
 

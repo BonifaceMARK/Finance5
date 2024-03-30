@@ -29,6 +29,24 @@
                         <div class="card-header">
                             Chat
                         </div>
+                        @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
                         <div class="card-body">
                             <div class="chat-container">
                                 <div class="chat-box" id="chatBox">
@@ -36,7 +54,7 @@
                                     @foreach($messages as $message)
                                         <div class="message">
                                             <div class="message-header">
-                                                <strong>{{ auth()->user()->name }}</strong> - {{ auth()->user()->department }}
+                                                <strong>{{ $name }}</strong> - {{ $department }}
                                                 <span class="message-time">{{ $message->created_at->format('M d, Y H:i A') }}</span>
                                             </div>
                                             <div class="message-content">{{ $message->message }}</div>

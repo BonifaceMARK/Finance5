@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ChatMessage;
+use Illuminate\Support\Facades\Auth;
 
 class CommunicationController extends Controller
 {
 
-  public function index()
-{
-    $messages = ChatMessage::latest()->limit(10)->get(); // Fetch full ChatMessage objects
-    return view('cac')->with('messages', $messages);
-}
+    public function index()
+    {
+        $messages = ChatMessage::latest()->limit(10)->get(); // Fetch full ChatMessage objects
 
+        // Assuming the user is authenticated, get their name and department
+        $user = Auth::user();
+        $name = $user->name;
+        $department = $user->department;
 
+        return view('cac', compact('messages', 'name', 'department'));
+    }
     public function storeMessage(Request $request)
     {
         $request->validate([

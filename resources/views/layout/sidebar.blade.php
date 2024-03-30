@@ -23,16 +23,12 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('accounting')}}">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('pfrs.checklist.index')}}">
           <span><i class="bi bi-card-checklist"></i>Accounting Standards</span>
         </a>
       </li><!-- End Icons Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('pfrs.checklist.index')}}">
-          <span><i class="bi bi-clipboard-check"></i>Checklist</span>
-        </a>
-      </li><!-- End Icons Nav -->
+
 
 
     </ul>

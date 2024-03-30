@@ -6,7 +6,6 @@
 @include('layout.header')
 <body>
 
-
   <!-- ======= Sidebar ======= -->
 @include('layout.sidebar')
 
@@ -23,172 +22,178 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
-
-
-        <!-- Recent Sales -->
-<div class="col-12">
-    <div class="card recent-sales overflow-auto">
-
-        <div class="card-body">
-            <h5 class="card-title">Recent Transactions <span>| Today</span></h5>
-
-            <table class="table table-borderless datatable">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Transaction Name</th>
-                        <th scope="col">Transaction Type</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($transactions as $transaction)
-                    <tr>
-                        <th scope="row"><a href="#">{{ $transaction->id }}</a></th>
-                        <td>{{ $transaction->transactionName }}</td>
-                        <td>{{ $transaction->transactionType }}</td>
-                        <td>${{ $transaction->transactionAmount }}</td>
-                        <td>{{ $transaction->created_at }}</td>
-                        <td><span class="badge bg-{{ $transaction->transactionStatus == 'Approved' ? 'success' : ($transaction->transactionStatus == 'Pending' ? 'warning' : 'danger') }}">{{ $transaction->transactionStatus }}</span></td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-        </div>
-
-    </div>
-</div><!-- End Recent Sales -->
-
-    <!-- Recent Activity -->
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-        <div class="activity">
-            @foreach($recentTransactions as $transaction)
-            <div class="activity-item d-flex">
-                <div class="activite-label">{{ $transaction->created_at->diffForHumans() }}</div>
-                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                <div class="activity-content">
-                    Transaction: {{ $transaction->total }}
-                </div>
-            </div><!-- End activity item-->
-            @endforeach
-
-            @foreach($recentReports as $report)
-            <div class="activity-item d-flex">
-                <div class="activite-label">{{ $report->created_at->diffForHumans() }}</div>
-                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                <div class="activity-content">
-                    Report: {{ $report->transactionName }}
-                </div>
-            </div><!-- End activity item-->
-            @endforeach
-
-            @foreach($recentTasks as $task)
-            <div class="activity-item d-flex">
-                <div class="activite-label">{{ $task->created_at->diffForHumans() }}</div>
-                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                <div class="activity-content">
-                    Task: {{ $task->task_name }}
-                </div>
-            </div><!-- End activity item-->
-            @endforeach
-
-            @foreach($recentProjects as $project)
-            <div class="activity-item d-flex">
-                <div class="activite-label">{{ $project->created_at->diffForHumans() }}</div>
-                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                <div class="activity-content">
-                    Project: {{ $project->project_name }}
-                </div>
-            </div><!-- End activity item-->
-            @endforeach
-        </div>
-    </div>
-</div><!-- End Recent Activity -->
-
-
-
-            <!-- Top Selling -->
-            <div class="col-12">
-              <div class="card top-selling overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Top Selling <span>| Today</span></h5>
-
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Revenue</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Recent Activity</h5>
               </div>
-            </div><!-- End Top Selling -->
+              <div class="card-body">
+                <div class="list-group">
+                  <!-- Recent Chat Messages -->
+                  @foreach($recentChatMessages as $message)
+                  <div class="list-group-item border-start-primary">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <span class="badge bg-primary me-2">Chat Message</span>
+                        <span>{{ $message->created_at->diffForHumans() }}</span>
+                      </div>
+                      <div>
+                        <span>{{ $message->message }}</span>
+                        <span class="text-muted ms-2">({{ $message->department }})</span>
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+
+                  <!-- Recent PFRS Checklist Items -->
+                  @foreach($recentPFRSChecklistItems as $item)
+                  <div class="list-group-item border-start-success">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <span class="badge bg-success me-2">PFRS Checklist</span>
+                        <span>{{ $item->created_at->diffForHumans() }}</span>
+                      </div>
+                      <div>
+                        <span>{{ $item->notes }}</span>
+                        <span class="text-muted ms-2">({{ $item->department }})</span>
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+
+                  <!-- Recent Transactions -->
+                  @foreach($recentTransactions as $transaction)
+                  <div class="list-group-item border-start-warning">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <span class="badge bg-warning me-2">Transaction</span>
+                        <span>{{ $transaction->transactionDate->diffForHumans() }}</span>
+                      </div>
+                      <div>
+                        <div>
+                          <strong>{{ $transaction->productName }}</strong>
+                          <span class="text-muted">{{ $transaction->description }}</span>
+                        </div>
+                        <div class="mt-1">
+                          <span>Amount: ${{ $transaction->transactionAmount }}</span>
+                          <span class="ms-3">Payment Method: {{ $transaction->paymentMethod }}</span>
+                          <span class="ms-3">Card Type: {{ $transaction->cardType }}</span>
+                        </div>
+                        <div class="mt-1">
+                          <span class="text-muted">Department: {{ $transaction->department }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+                </div>
+              </div>
+            </div>
+          </div>
 
 
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">PFRS Checklist</h5>
+            <!-- Vertical Pills Tabs -->
+            <div class="d-flex align-items-start">
+              <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="approved-tab" data-bs-toggle="pill" href="#approved" role="tab" aria-controls="approved" aria-selected="true">Approved</a>
+                <a class="nav-link" id="rejected-tab" data-bs-toggle="pill" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
+                <a class="nav-link" id="comply-tab" data-bs-toggle="pill" href="#comply" role="tab" aria-controls="comply" aria-selected="false">Comply</a>
+              </div>
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                  <!-- Display approved items here -->
+                  @if($approvedItems->count() > 0)
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Department</th>
+                          <th>Notes</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($approvedItems as $item)
+                        <tr>
+                          <td>{{ $item->department }}</td>
+                          <td>{{ $item->notes }}</td>
+                          <td>{{ $item->status }}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  @else
+                  <p class="text-center">No approved items found.</p>
+                  @endif
+                </div>
+                <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                  <!-- Display rejected items here -->
+                  @if($rejectedItems->count() > 0)
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Department</th>
+                          <th>Notes</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($rejectedItems as $item)
+                        <tr>
+                          <td>{{ $item->department }}</td>
+                          <td>{{ $item->notes }}</td>
+                          <td>{{ $item->status }}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  @else
+                  <p class="text-center">No rejected items found.</p>
+                  @endif
+                </div>
+                <div class="tab-pane fade" id="comply" role="tabpanel" aria-labelledby="comply-tab">
+                  <!-- Display comply items here -->
+                  @if($complyItems->count() > 0)
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Department</th>
+                          <th>Notes</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($complyItems as $item)
+                        <tr>
+                          <td>{{ $item->department }}</td>
+                          <td>{{ $item->notes }}</td>
+                          <td>{{ $item->status }}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  @else
+                  <p class="text-center">No items complying found.</p>
+                  @endif
+                </div>
+              </div>
+            </div>
+            <!-- End Vertical Pills Tabs -->
+          </div>
+        </div>
       </div>
     </section>
 

@@ -9,5 +9,11 @@ class ChatMessage extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'message'];
+    protected $fillable = ['user_id', 'message'];
+
+    // Define a relationship to retrieve the user who sent the message
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -52,14 +52,15 @@
                                 <div class="chat-box" id="chatBox">
                                     <!-- Messages will appear here -->
                                     @foreach($messages as $message)
-                                        <div class="message">
-                                            <div class="message-header">
-                                                <strong>{{ $name }}</strong> - {{ $department }}
-                                                <span class="message-time">{{ $message->created_at->format('M d, Y H:i A') }}</span>
-                                            </div>
-                                            <div class="message-content">{{ $message->message }}</div>
+                                    <div class="message">
+                                        <div class="message-header">
+                                            <strong>{{ $message->user->name }}</strong> - {{ $message->user->department }}
+                                            <span class="message-time">{{ $message->created_at->format('M d, Y H:i A') }}</span>
                                         </div>
-                                    @endforeach
+                                        <div class="message-content">{{ $message->message }}</div>
+                                    </div>
+                                @endforeach
+
                                 </div>
                                 <form action="{{ route('chat.store') }}" method="post">
                                     @csrf

@@ -15,6 +15,7 @@ class CreateChatMessagesTable extends Migration
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Add foreign key constraint to users table
             $table->text('message');
             $table->timestamps();
         });

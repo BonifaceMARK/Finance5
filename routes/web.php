@@ -43,7 +43,7 @@ Route::get('/standard', [StandardController::class, 'standardDash'])->name('acco
 Route::post('/transactions-report', [PaymentController::class, 'store'])->name('transactions-report.store');
 Route::get('/transactions/{id}/payment', [PaymentController::class, 'showPayment'])->name('transactions.showPayment');
 
-Route::get('/payment', [ApiController::class, 'payment']);
+Route::get('/payment', [ApiController::class, 'Payment']);
 
 Route::get('/transactions/{id?}', [PaymentController::class, 'index'])->name('transactions.index');
 

@@ -283,6 +283,28 @@
     color: #798eb3;
     padding: 15px;
   }
+  .custom-card {
+    background-image: url('assets/img/collab.jpg');
+    background-size: cover;
+    background-position: center;
+    border: none; /* Optional: remove card border */
+}
+.table-transparent thead th {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-transparent tbody td {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-transparent tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+
 
    .chat-container {
             max-width: 600px;

@@ -12,6 +12,7 @@ class TransactionsReport extends Model
     protected $table = 'transactions_report_tbl';
 
     protected $fillable = [
+        'reference',
         'productName', // Add productName attribute
         'transactionName',
         'paymentMethod', // Added paymentMethod attribute
@@ -21,7 +22,8 @@ class TransactionsReport extends Model
         'transactionDate',
         'description', // Added description attribute
         'transactionStatus',
-        'reasonForCancellation'
+        'reasonForCancellation',
+        'comment'
         // Add more fillable attributes if needed
     ];
 

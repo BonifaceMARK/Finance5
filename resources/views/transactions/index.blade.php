@@ -306,8 +306,7 @@
                     <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="transactionStatus" class="form-label">Status</label>
-                    <input type="text" class="form-control" id="transactionStatus" name="transactionStatus" value="Pending" readonly>
+                    <input type="hidden" class="form-control" id="transactionStatus" name="transactionStatus" value="Pending" readonly>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <!-- Add a Cancel button -->

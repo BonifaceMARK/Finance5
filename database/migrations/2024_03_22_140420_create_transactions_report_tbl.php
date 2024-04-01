@@ -10,6 +10,7 @@ class CreateTransactionsReportTbl extends Migration
     {
         Schema::create('transactions_report_tbl', function (Blueprint $table) {
             $table->id();
+            $table->uuid('reference');
             $table->string('productName');
             $table->string('transactionName');
             $table->string('paymentMethod'); // Add paymentMethod column
@@ -20,6 +21,7 @@ class CreateTransactionsReportTbl extends Migration
             $table->text('description')->nullable(); // Add description column
             $table->string('transactionStatus');
             $table->string('reasonForCancellation')->nullable();
+            $table->text('comment')->nullable();
             // Add more columns if needed
             $table->timestamps();
         });

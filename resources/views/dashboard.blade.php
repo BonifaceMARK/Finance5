@@ -18,12 +18,96 @@
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                Recent Transactions
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach($recentTransactions as $transaction)
+                    <div class="list-group-item border-start-warning">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-warning me-2">Transaction</span>
+                                <span>{{ $transaction->transactionDate->diffForHumans() }}</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <strong>{{ $transaction->productName }}</strong>
+                                    <span class="text-muted">{{ $transaction->description }}</span>
+                                </div>
+                                <div class="mt-1">
+                                    <span>Amount: ${{ $transaction->transactionAmount }}</span>
+                                    <span class="ms-3">Payment Method: {{ $transaction->paymentMethod }}</span>
+                                    <span class="ms-3">Card Type: {{ $transaction->cardType }}</span>
+                                </div>
+                                <div class="mt-1">
+                                    <span class="text-muted">Department: {{ $transaction->department }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Messages</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <!-- Recent Chat Messages -->
+                        @foreach($recentChatMessages as $message)
+                        <div class="list-group-item border-start-primary rounded-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="badge bg-primary me-2">Chat Message</span>
+                                    <span class="text-muted">{{ $message->created_at->diffForHumans() }}</span>
+                                </div>
+                                <div>
+                                    <span class="fw-bold">{{ $message->user->name }}</span> - <span class="text-muted">{{ $message->user->department }}</span>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <strong class="text-muted">From:</strong> {{ $message->user->name }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong class="text-muted">Department:</strong> {{ $message->user->department }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong class="text-muted">Message Type:</strong> {{ $message->type }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong class="text-muted">Priority:</strong> {{ $message->priority }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <strong class="text-muted">Message:</strong> {{ $message->message }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
       </nav>
     </div><!-- End Page Title -->
+
 
     <section class="section dashboard">
       <div class="container">
         <div class="row">
+
+
+
 
           <!-- Card with an image on left -->
           <div class="card mb-3">
@@ -85,28 +169,6 @@
     </section>
 
 
-          <div class="col-lg-12">
-            <div class="card mb-4">
-              <div class="card-header">
-                <h5 class="card-title mb-0">Recent Activity</h5>
-              </div>
-              <div class="card-body">
-                <div class="list-group">
-                  <!-- Recent Chat Messages -->
-                  @foreach($recentChatMessages as $message)
-                  <div class="list-group-item border-start-primary">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <span class="badge bg-primary me-2">Chat Message</span>
-                        <span>{{ $message->created_at->diffForHumans() }}</span>
-                      </div>
-                      <div>
-                        <span>{{ $message->message }}</span>
-                        <span class="text-muted ms-2">({{ $message->department }})</span>
-                      </div>
-                    </div>
-                  </div>
-                  @endforeach
 
                   <!-- Recent PFRS Checklist Items -->
                   @foreach($recentPFRSChecklistItems as $item)
@@ -124,39 +186,8 @@
                   </div>
                   @endforeach
 
-                  <!-- Recent Transactions -->
-                  @foreach($recentTransactions as $transaction)
-                  <div class="list-group-item border-start-warning">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <span class="badge bg-warning me-2">Transaction</span>
-                        <span>{{ $transaction->transactionDate->diffForHumans() }}</span>
-                      </div>
-                      <div>
-                        <div>
-                          <strong>{{ $transaction->productName }}</strong>
-                          <span class="text-muted">{{ $transaction->description }}</span>
-                        </div>
-                        <div class="mt-1">
-                          <span>Amount: ${{ $transaction->transactionAmount }}</span>
-                          <span class="ms-3">Payment Method: {{ $transaction->paymentMethod }}</span>
-                          <span class="ms-3">Card Type: {{ $transaction->cardType }}</span>
-                        </div>
-                        <div class="mt-1">
-                          <span class="text-muted">Department: {{ $transaction->department }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-            </div>
-          </div>
 
 
-        </div>
-      </div>
       <div class="col-lg-12">
         <div class="card mb-4">
           <div class="card-body">
@@ -255,8 +286,11 @@
             <!-- End Vertical Pills Tabs -->
           </div>
         </div>
+
       </div>
+
     </section>
+
 
   </main><!-- End #main -->
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\TransactionsReport;
 use App\Models\ChatMessage;
@@ -21,12 +21,16 @@ class DashboardController extends Controller
         $recentPFRSChecklistItems = PFRSChecklistItem::latest()->take(5)->get();
         $recentTransactions = TransactionsReport::latest()->take(5)->get();
 
+        $user = Auth::user();
+        $name = $user->name;
+        $department = $user->department;
+
         // Convert transactionDate to Carbon instance
         $recentTransactions->transform(function ($transaction) {
             $transaction->transactionDate = Carbon::parse($transaction->transactionDate);
             return $transaction;
         });
 
-        return view('dashboard', compact('recentChatMessages', 'recentPFRSChecklistItems', 'recentTransactions', 'approvedItems', 'rejectedItems', 'complyItems'));
+        return view('dashboard', compact('name', 'department','recentChatMessages', 'recentPFRSChecklistItems', 'recentTransactions', 'approvedItems', 'rejectedItems', 'complyItems'));
     }
 }

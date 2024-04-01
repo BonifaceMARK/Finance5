@@ -12,114 +12,114 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+        <h1><strong>Welcome to Dashboard !</strong></h1>
       <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-        <div class="col-lg-12">
-            <div class="card mb-4" style="background-image: url('{{ asset('assets/img/check.jpg') }}'); background-size: cover; background-position: center;">
-                <div class="card-body">
-                    <h5 class="card-title">PFRS Checklist</h5>
-                    <!-- Vertical Pills Tabs -->
-                    <div class="d-flex align-items-start">
-                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active" id="approved-tab" data-bs-toggle="pill" href="#approved" role="tab" aria-controls="approved" aria-selected="true">Approved</a>
-                            <a class="nav-link" id="rejected-tab" data-bs-toggle="pill" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
-                            <a class="nav-link" id="comply-tab" data-bs-toggle="pill" href="#comply" role="tab" aria-controls="comply" aria-selected="false">Comply</a>
-                        </div>
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="approved" role="tabpanel" aria-labelledby="approved-tab">
-                                <!-- Display approved items here -->
-                                @if($approvedItems->count() > 0)
-                                <div class="table-responsive">
-                                    <table class="table table-transparent text-white">
-                                        <thead>
-                                            <tr>
-                                                <th>Department</th>
-                                                <th>Notes</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($approvedItems as $item)
-                                            <tr class="table-row-transparent">
-                                                <td>{{ $item->department }}</td>
-                                                <td>{{ $item->notes }}</td>
-                                                <td>{{ $item->status }}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                @else
-                                <p class="text-center">No approved items found.</p>
-                                @endif
-                            </div>
-                            <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
-                                <!-- Display rejected items here -->
-                                @if($rejectedItems->count() > 0)
-                                <div class="table-responsive">
-                                    <table class="table table-transparent text-white">
-                                        <thead>
-                                            <tr>
-                                                <th>Department</th>
-                                                <th>Notes</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($rejectedItems as $item)
-                                            <tr class="table-row-transparent">
-                                                <td>{{ $item->department }}</td>
-                                                <td>{{ $item->notes }}</td>
-                                                <td>{{ $item->status }}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                @else
-                                <p class="text-center">No rejected items found.</p>
-                                @endif
-                            </div>
-                            <div class="tab-pane fade" id="comply" role="tabpanel" aria-labelledby="comply-tab">
-                                <!-- Display comply items here -->
-                                @if($complyItems->count() > 0)
-                                <div class="table-responsive">
-                                    <table class="table table-transparent text-white">
-                                        <thead>
-                                            <tr>
-                                                <th>Department</th>
-                                                <th>Notes</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($complyItems as $item)
-                                            <tr class="table-row-transparent">
-                                                <td>{{ $item->department }}</td>
-                                                <td>{{ $item->notes }}</td>
-                                                <td>{{ $item->status }}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                @else
-                                <p class="text-center">No items complying found.</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Vertical Pills Tabs -->
-                </div>
-            </div>
-        </div>
+    </nav>
+</div><!-- End Page Title -->
+
 
 
         <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card mb-4" style="background-image: url('{{ asset('assets/img/check.jpg') }}'); background-size: cover; background-position: center;">
+                    <div class="card-body">
+                        <h5 class="card-title">PFRS Checklist</h5>
+                        <!-- Vertical Pills Tabs -->
+                        <div class="d-flex align-items-start">
+                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="approved-tab" data-bs-toggle="pill" href="#approved" role="tab" aria-controls="approved" aria-selected="true">Approved</a>
+                                <a class="nav-link" id="rejected-tab" data-bs-toggle="pill" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
+                                <a class="nav-link" id="comply-tab" data-bs-toggle="pill" href="#comply" role="tab" aria-controls="comply" aria-selected="false">Comply</a>
+                            </div>
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                                    <!-- Display approved items here -->
+                                    @if($approvedItems->count() > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-transparent text-white">
+                                            <thead>
+                                                <tr>
+                                                    <th>Department</th>
+                                                    <th>Notes</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($approvedItems as $item)
+                                                <tr class="table-row-transparent">
+                                                    <td>{{ $item->department }}</td>
+                                                    <td>{{ $item->notes }}</td>
+                                                    <td>{{ $item->status }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @else
+                                    <p class="text-center">No approved items found.</p>
+                                    @endif
+                                </div>
+                                <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                                    <!-- Display rejected items here -->
+                                    @if($rejectedItems->count() > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-transparent text-white">
+                                            <thead>
+                                                <tr>
+                                                    <th>Department</th>
+                                                    <th>Notes</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($rejectedItems as $item)
+                                                <tr class="table-row-transparent">
+                                                    <td>{{ $item->department }}</td>
+                                                    <td>{{ $item->notes }}</td>
+                                                    <td>{{ $item->status }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @else
+                                    <p class="text-center">No rejected items found.</p>
+                                    @endif
+                                </div>
+                                <div class="tab-pane fade" id="comply" role="tabpanel" aria-labelledby="comply-tab">
+                                    <!-- Display comply items here -->
+                                    @if($complyItems->count() > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-transparent text-white">
+                                            <thead>
+                                                <tr>
+                                                    <th>Department</th>
+                                                    <th>Notes</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($complyItems as $item)
+                                                <tr class="table-row-transparent">
+                                                    <td>{{ $item->department }}</td>
+                                                    <td>{{ $item->notes }}</td>
+                                                    <td>{{ $item->status }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @else
+                                    <p class="text-center">No items complying found.</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Vertical Pills Tabs -->
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header bg-warning text-white">
@@ -176,7 +176,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-6">
                 <div class="card mb-4" style="background-image: url('{{ asset('assets/img/collab.jpg') }}'); background-size: cover; background-position: center;">
                     <div class="card-header" style="background-color: transparent; border: none;">
@@ -214,8 +213,7 @@
 
 
 
-      </nav>
-    </div><!-- End Page Title -->
+
 
 
     <section class="section dashboard">

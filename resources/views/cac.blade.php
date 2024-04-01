@@ -13,12 +13,8 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Chat</h1>
+            <h1><strong>Communicate and Collaborate through Chat !</strong></h1>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Chat</li>
-                </ol>
             </nav>
         </div><!-- End Page Title -->
 

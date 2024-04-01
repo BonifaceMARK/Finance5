@@ -9,19 +9,15 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Payment Gateways</h1>
+<H1><strong>Pay in many different ways here in Payment Gateways !</strong></H1>
         <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('transactions.index') }}">Home</a></li>
-                <li class="breadcrumb-item active">All Transactions</li>
-            </ol>
+
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
         <div class="container">
-            <div class="card">
-                <!-- Button trigger modal -->
+
 
                 @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,13 +37,11 @@
                 </div>
             @endif
 
-
-</div>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Payment Gateways</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Choose your payment method</h6>
-                        <p class="card-text">Payment gateways are essential components of modern e-commerce and online transactions, facilitating secure and seamless monetary exchanges between buyers and sellers over the internet. These gateways serve as intermediaries between the merchant's website or application and the financial institutions that handle the transaction processing.</p>
+                        <h2 class="card-title"><strong>Payment Gateways</strong></h2>
+                        <h6 class="card-subtitle mb-2 text-muted">Payment gateways are essential components of modern e-commerce and online transactions, facilitating secure and seamless monetary exchanges between buyers and sellers over the internet. These gateways serve as intermediaries between the merchant's website or application and the financial institutions that handle the transaction processing.</h6>
+                        <p class="card-text"></p>
                         <div class="row">
                             <!-- Payment Options -->
                             <div class="col-md-12 mb-3">

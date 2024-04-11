@@ -21,6 +21,12 @@
         </a>
       </li><!-- End Components Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav"  href="{{route('market.index')}}">
+            <i class="bi bi-shop"></i><span>Market Place</span>
+        </a>
+      </li><!-- End Components Nav -->
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav"  href="{{route('pfrs.checklist.index')}}">

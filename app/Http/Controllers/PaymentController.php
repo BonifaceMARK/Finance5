@@ -11,36 +11,36 @@ class PaymentController extends Controller
     public function index()
     {
         $transactionsReports = TransactionsReport::all();
-            $curl = curl_init();
-            $url = "https://fms3-swasfcrb.fguardians-fms.com/s-pull-approved";
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($curl);
-            curl_close($curl);
-            $data = json_decode($response, true);
-            if (!empty($data)) {
-                foreach ($data as $item) {
-                    // Retrieve the record by its reference
-                    $existingItem = TransactionsReport::where('reference', $item['reference'])->first();
-                    if ($existingItem) {
+        $curl = curl_init();
+        $url = "https://fms3-swasfcrb.fguardians-fms.com/s-pull-approved";
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+        if (!empty($data)) {
+            foreach ($data as $item) {
 
+                $existingItem = TransactionsReport::where('reference', $item['reference'])->first();
+                if ($existingItem) {
+                    $comment = null;
+                    if (isset($item['comment'])) {
                         $nestedComment = $item['comment'];
-                        $comment = $nestedComment['comment'];
-                        $existingItem->transactionStatus = $item['status'];
-                        $existingItem->updated_at = $item['updated_at'];
-                        $existingItem->comment = $comment;
-                        // Save the changes
-                        $existingItem->save();
-                    } else {
-
-
+                        if (isset($nestedComment['comment'])) {
+                            $comment = $nestedComment['comment'];
+                        }
                     }
+                    $existingItem->transactionStatus = $item['status'];
+                    $existingItem->updated_at = $item['updated_at'];
+                    $existingItem->comment = $comment;
+
+                    $existingItem->save();
+                } else {
 
                 }
             }
-
+        }
         return view('transactions.index', compact('transactionsReports'));
-
     }
 
 
@@ -82,6 +82,34 @@ class PaymentController extends Controller
         return redirect()->route('transactions.index')->with('success', 'Transaction report created successfully.');
     }
 
+    public function indexMarket()
+    {
+        // Sample items data (you can fetch from database or use factories)
+        $items = [
+            [
+                'title' => 'Laptop',
+                'description' => 'Powerful laptop for all your needs',
+                'price' => 999,
+                'image_url' => asset('assets/img/laptop.jpg'),
+                'seller' => 'Electronics Emporium',
+            ],
+            [
+                'title' => 'Smartphone',
+                'description' => 'Latest smartphone with advanced features',
+                'price' => 699,
+                'image_url' => asset('assets/img/smartphone.jpg'),
+                'seller' => 'Gadget World',
+            ],
+            [
+                'title' => 'Camera',
+                'description' => 'Professional camera for stunning photos',
+                'price' => 1299,
+                'image_url' => asset('assets/img/camera.jpg'),
+                'seller' => 'Photography Pros',
+            ],
+        ];
 
+        return view('market', compact('items'));
+    }
 
 }
